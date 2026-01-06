@@ -1,8 +1,10 @@
 #!/bin/bash
 
 help_cluster(){
-    add_log "Func: cluster_ctx () | Act: [kubectl] config current-context | Desc: Gets current cluster context"
-    add_log "Func: cluster_ver () | Act: [kubectl] version --short | Desc: Gets cluster version"
+    add_log_help "=== help_cluster ==="
+    add_log_help "Func: cluster_context [clstctx] () | Act: [kubectl] config current-context | Desc: Gets current cluster context"
+    add_log_help "Func: cluster_version [clstver] () | Act: [kubectl] version --short | Desc: Gets cluster version"
+    add_log_help ""
 }
 
 # =============================================================================
@@ -10,14 +12,18 @@ help_cluster(){
 # =============================================================================
 
 # ===== cluster_ctx() ===== 
-#- kubectl config current-context
-cluster_ctx() { $K8S config current-context | add_log }
+cluster_context() { 
+    add_log "=== Func: cluster_context ==="
+    $K8S config current-context | add_log 
+}
+# Short name of cluster_context
+clstctx() { cluster_context "$@"; }
 
 # ===== cluster_ver() =====
-#- kubectl version
-cluster_ver() { $K8S version | add_log; }
 
-# ========== BACKWARD COMPATIBILITY ALIASES ==========
-bk_get_context() { cluster_ctx "$@" | add_log; }
-bk_get_version() { cluster_ver "$@" | add_log; }
-
+cluster_version() { 
+    add_log "=== Func: cluster_version ==="
+    $K8S version | add_log; 
+}
+# Short name of cluster_version
+clstver() { cluster_version "$@"; }

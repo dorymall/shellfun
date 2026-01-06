@@ -32,7 +32,7 @@ done
 
 function add_log(){
     local folder="${sf_logs_folder:-$(pwd)}"
-    local log_file="$folder/_general.log"
+    local log_file="$folder/_sf.log"
 
     # Ensure the directory exists
     mkdir -p "$folder" 2>/dev/null
@@ -47,8 +47,26 @@ function add_log(){
         cat - | tee -a "$log_file"
     fi
 
-     # Add separator for differentiation
-    echo "..." | tee -a "$log_file"
+
+}
+
+function add_log_help(){
+    local folder="${sf_logs_folder:-$(pwd)}"
+    local log_file="$folder/_helpsf.log"
+
+    # Ensure the directory exists
+    mkdir -p "$folder" 2>/dev/null
+
+    # Handle positional arguments
+    if [ $# -gt 0 ]; then
+        echo "$@" | tee -a "$log_file"
+    fi
+
+    # Handle piped input (stdin)
+    if [ ! -t 0 ]; then
+        cat - | tee -a "$log_file"
+    fi
+
 
 }
 

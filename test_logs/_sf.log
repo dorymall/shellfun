@@ -1,0 +1,36 @@
+=======================Shell fun loaded=============================
+......
+=======================Shell fun loaded=============================
+=== Func: cluster_version ===
+Client Version: v1.34.1
+Kustomize Version: v5.7.1
+Server Version: v1.33.5+k3s1
+=======================Shell fun loaded=============================
+=== Func: ns_ls ===
+Available namespaces:
+NAME                    STATUS   AGE
+configmap-copy-target   Active   44d
+default                 Active   65d
+kube-node-lease         Active   65d
+kube-public             Active   65d
+kube-system             Active   65d
+kubernetes-dashboard    Active   63d
+n-mysql                 Active   63d
+n-test-configmaps       Active   44d
+n-test-deployments      Active   44d
+n-test-helm             Active   11d
+n-test-ingress          Active   43d
+n-test-pods             Active   44d
+n-test-rbac             Active   43d
+n-test-rbac-target      Active   43d
+n-test-services         Active   44d
+n-test-storage          Active   43d
+n-wp                    Active   10d
+ns-test-configmaps      Active   12d
+test                    Active   44d
+valurite-api            Active   57d
+=== Func: ns_get_current ===
+n-wp
+=======================Shell fun loaded=============================
+=== Func: ap_add_f ===
+=== Func: ap_del_f ===
