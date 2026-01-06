@@ -42,7 +42,7 @@ help_helm(){
     echo "Func: helm_install_win                                  ()                                       | Act: [choco] install helm             | Desc: Installs Helm on Windows using Chocolatey/Winget"
 }
 
-HELM="${HELM:-helm}"
+
 
 # =============================================================================
 # ✨ CREATE / PUT OPERATIONS
@@ -51,7 +51,7 @@ HELM="${HELM:-helm}"
 # ===== helm_create_chart_by_name(name) =====
 helm_create_chart_by_name() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_create_chart_by_name <name>"; return 1; }
-    $HELM create "$1"
+    $HELM_EXEC create "$1"
 }
 # wordpress/
 #   Chart.yaml          # A YAML file containing information about the chart
@@ -68,61 +68,61 @@ helm_create_chart_by_name() {
 # ===== helm_lint_chart_by_path(path) =====
 helm_lint_chart_by_path() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_lint_chart_by_path <path>"; return 1; }
-    $HELM lint "$1"
+    $HELM_EXEC lint "$1"
 }
 
 # ===== helm_package_by_path(path) =====
 helm_package_by_path() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_package_by_path <path>"; return 1; }
-    $HELM package "$1"
+    $HELM_EXEC package "$1"
 }
 
 # ===== helm_repo_add_url_by_name_by_url(name, url) =====
 helm_repo_add_url_by_name_by_url() {
     [[ -z "$1" || -z "$2" ]] && { echo "❌ Usage: helm_repo_add_url_by_name_by_url <name> <url>"; return 1; }
-    $HELM repo add "$1" "$2"
+    $HELM_EXEC repo add "$1" "$2"
 }
 
 # ===== helm_install_chart_by_ns_by_release_by_chart(ns, release, chart) =====
 helm_install_chart_by_ns_by_release_by_chart() {
     [[ -z "$1" || -z "$2" || -z "$3" ]] && { echo "❌ Usage: helm_install_chart_by_ns_by_release_by_chart <ns> <release> <chart>"; return 1; }
-    $HELM install "$2" "$3" -n "$1"
+    $HELM_EXEC install "$2" "$3" -n "$1"
 }
 
 # ===== helm_install_ver_by_ns_by_release_by_chart_by_ver(ns, release, chart, ver) =====
 helm_install_ver_by_ns_by_release_by_chart_by_ver() {
     [[ -z "$1" || -z "$2" || -z "$3" || -z "$4" ]] && { echo "❌ Usage: helm_install_ver_by_ns_by_release_by_chart_by_ver <ns> <release> <chart> <ver>"; return 1; }
-    $HELM install "$2" "$3" -n "$1" --version "$4"
+    $HELM_EXEC install "$2" "$3" -n "$1" --version "$4"
 }
 
 # ===== helm_install_set_by_ns_by_release_by_chart_by_param(ns, release, chart, param) =====
 helm_install_set_by_ns_by_release_by_chart_by_param() {
     [[ -z "$1" || -z "$2" || -z "$3" || -z "$4" ]] && { echo "❌ Usage: helm_install_set_by_ns_by_release_by_chart_by_param <ns> <release> <chart> <param>"; return 1; }
-    $HELM install "$2" "$3" -n "$1" --set "$4"
+    $HELM_EXEC install "$2" "$3" -n "$1" --set "$4"
 }
 
 # ===== helm_install_with_vals_by_ns_by_release_by_chart_by_val_file(ns, release, chart, val_file) =====
 helm_install_with_vals_by_ns_by_release_by_chart_by_val_file() {
     [[ -z "$1" || -z "$2" || -z "$3" || -z "$4" ]] && { echo "❌ Usage: helm_install_with_vals_by_ns_by_release_by_chart_by_val_file <ns> <release> <chart> <val_file>"; return 1; }
-    $HELM install "$2" "$3" -n "$1" -f "$4"
+    $HELM_EXEC install "$2" "$3" -n "$1" -f "$4"
 }
 
 # ===== helm_install_archive_by_ns_by_release_by_archive(ns, release, archive) =====
 helm_install_archive_by_ns_by_release_by_archive() {
     [[ -z "$1" || -z "$2" || -z "$3" ]] && { echo "❌ Usage: helm_install_archive_by_ns_by_release_by_archive <ns> <release> <archive>"; return 1; }
-    $HELM install "$2" "$3" -n "$1"
+    $HELM_EXEC install "$2" "$3" -n "$1"
 }
 
 # ===== helm_install_dir_by_ns_by_release_by_dir(ns, release, dir) =====
 helm_install_dir_by_ns_by_release_by_dir() {
     [[ -z "$1" || -z "$2" || -z "$3" ]] && { echo "❌ Usage: helm_install_dir_by_ns_by_release_by_dir <ns> <release> <dir>"; return 1; }
-    $HELM install "$2" "$3" -n "$1"
+    $HELM_EXEC install "$2" "$3" -n "$1"
 }
 
 # ===== helm_install_url_by_ns_by_release_by_url(ns, release, url) =====
 helm_install_url_by_ns_by_release_by_url() {
     [[ -z "$1" || -z "$2" || -z "$3" ]] && { echo "❌ Usage: helm_install_url_by_ns_by_release_by_url <ns> <release> <url>"; return 1; }
-    $HELM install "$2" "$3" -n "$1"
+    $HELM_EXEC install "$2" "$3" -n "$1"
 }
 
 # =============================================================================
@@ -130,84 +130,84 @@ helm_install_url_by_ns_by_release_by_url() {
 # =============================================================================
 
 # ===== helm_added_repos_ls() =====
-helm_added_repos_ls() { $HELM repo list; }
+helm_added_repos_ls() { $HELM_EXEC repo list; }
 
 # ===== helm_ls_installed_by_ns(ns, [args...]) =====
 helm_ls_installed_by_ns() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_ls_installed_by_ns <ns> [args...]"; return 1; }
-    $HELM list -n "$1" "${@:2}"
+    $HELM_EXEC list -n "$1" "${@:2}"
 }
 
 # ===== helm_ls_installed_from_all_ns([args...]) =====
-helm_ls_installed_from_all_ns() { $HELM list -A "$@"; }
+helm_ls_installed_from_all_ns() { $HELM_EXEC list -A "$@"; }
 
 # ===== helm_ls_all_installed_failed_deleted([args...]) =====
-helm_ls_all_installed_failed_deleted() { $HELM list --all "$@"; }
+helm_ls_all_installed_failed_deleted() { $HELM_EXEC list --all "$@"; }
 
 # ===== helm_installed_chart_status_by_ns_by_release(ns, release) =====
 helm_installed_chart_status_by_ns_by_release() {
     [[ -z "$1" || -z "$2" ]] && { echo "❌ Usage: helm_installed_chart_status_by_ns_by_release <ns> <release>"; return 1; }
-    $HELM status "$2" -n "$1"
+    $HELM_EXEC status "$2" -n "$1"
 }
 
 # ===== helm_get_overridden_values_by_ns_by_release(ns, release) =====
 helm_get_overridden_values_by_ns_by_release() {
     [[ -z "$1" || -z "$2" ]] && { echo "❌ Usage: helm_get_overridden_values_by_ns_by_release <ns> <release>"; return 1; }
-    $HELM get values "$2" -n "$1"
+    $HELM_EXEC get values "$2" -n "$1"
 }
 
 # ===== helm_show_values_by_chart(chart) =====
 helm_show_values_by_chart() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_show_values_by_chart <chart>"; return 1; }
-    $HELM show values "$1"
+    $HELM_EXEC show values "$1"
 }
 
 # ===== helm_show_all_chart_contents_by_chart(chart) =====
 helm_show_all_chart_contents_by_chart() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_show_all_chart_contents_by_chart <chart>"; return 1; }
-    $HELM show all "$1"
+    $HELM_EXEC show all "$1"
 }
 
 # ===== helm_pull_chart_to_local_by_chart(chart) =====
 helm_pull_chart_to_local_by_chart() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_pull_chart_to_local_by_chart <chart>"; return 1; }
-    $HELM pull "$1"
+    $HELM_EXEC pull "$1"
 }
 
 # ===== helm_pull_chart_untar_to_local_by_chart(chart) =====
 helm_pull_chart_untar_to_local_by_chart() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_pull_chart_untar_to_local_by_chart <chart>"; return 1; }
-    $HELM pull "$1" --untar=true
+    $HELM_EXEC pull "$1" --untar=true
 }
 
 # ===== helm_pull_chart_verify_to_local_by_chart(chart) =====
 helm_pull_chart_verify_to_local_by_chart() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_pull_chart_verify_to_local_by_chart <chart>"; return 1; }
-    $HELM pull "$1" --verify
+    $HELM_EXEC pull "$1" --verify
 }
 
 # ===== helm_pull_chart_version_to_local_by_chart_by_ver(chart, ver) =====
 helm_pull_chart_version_to_local_by_chart_by_ver() {
     [[ -z "$1" || -z "$2" ]] && { echo "❌ Usage: helm_pull_chart_version_to_local_by_chart_by_ver <chart> <ver>"; return 1; }
-    $HELM pull "$1" --version "$2"
+    $HELM_EXEC pull "$1" --version "$2"
 }
 
 # ===== helm_display_chart_dependencies_by_chart(chart) =====
 helm_display_chart_dependencies_by_chart() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_display_chart_dependencies_by_chart <chart>"; return 1; }
-    $HELM dependency list "$1"
+    $HELM_EXEC dependency list "$1"
 }
 
 # ===== helm_search_chart_in_added_repos_by_keyword(keyword) =====
 helm_search_chart_in_added_repos_by_keyword() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_search_chart_in_added_repos_by_keyword <keyword>"; return 1; }
-    $HELM search repo "$1"
+    $HELM_EXEC search repo "$1"
 }
 
 # ===== helm_search_artifact_hub_by_keyword(keyword) =====
 helm_search_artifact_hub_by_keyword() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_search_artifact_hub_by_keyword <keyword>"; return 1; }
-    $HELM search hub "$1"
+    $HELM_EXEC search hub "$1"
 }
 
 # =============================================================================
@@ -215,24 +215,24 @@ helm_search_artifact_hub_by_keyword() {
 # =============================================================================
 
 # ===== helm_repo_info_update() =====
-helm_repo_info_update() { $HELM repo update; }
+helm_repo_info_update() { $HELM_EXEC repo update; }
 
 # ===== helm_update_installed_chart_by_ns_by_release_by_chart(ns, release, chart, [args...]) =====
 helm_update_installed_chart_by_ns_by_release_by_chart() {
     [[ -z "$1" || -z "$2" || -z "$3" ]] && { echo "❌ Usage: helm_update_installed_chart_by_ns_by_release_by_chart <ns> <release> <chart> [args...]"; return 1; }
-    $HELM upgrade "$2" "$3" -n "$1" --install "${@:4}"
+    $HELM_EXEC upgrade "$2" "$3" -n "$1" --install "${@:4}"
 }
 
 # ===== helm_update_with_values_file_by_ns_by_release_by_chart_by_val_file(ns, release, chart, val_file) =====
 helm_update_with_values_file_by_ns_by_release_by_chart_by_val_file() {
     [[ -z "$1" || -z "$2" || -z "$3" || -z "$4" ]] && { echo "❌ Usage: helm_update_with_values_file_by_ns_by_release_by_chart_by_val_file <ns> <release> <chart> <val_file>"; return 1; }
-    $HELM upgrade "$2" "$3" -n "$1" -f "$4" --install
+    $HELM_EXEC upgrade "$2" "$3" -n "$1" -f "$4" --install
 }
 
 # ===== helm_rollback_installed_release_by_ns_by_release_by_revision(ns, release, revision) =====
 helm_rollback_installed_release_by_ns_by_release_by_revision() {
     [[ -z "$1" || -z "$2" || -z "$3" ]] && { echo "❌ Usage: helm_rollback_installed_release_by_ns_by_release_by_revision <ns> <release> <revision>"; return 1; }
-    $HELM rollback "$2" "$3" -n "$1"
+    $HELM_EXEC rollback "$2" "$3" -n "$1"
 }
 
 # =============================================================================
@@ -242,13 +242,13 @@ helm_rollback_installed_release_by_ns_by_release_by_revision() {
 # ===== helm_del_added_repo_by_name(name) =====
 helm_del_added_repo_by_name() {
     [[ -z "$1" ]] && { echo "❌ Usage: helm_del_added_repo_by_name <name>"; return 1; }
-    $HELM repo remove "$1"
+    $HELM_EXEC repo remove "$1"
 }
 
 # ===== helm_del_installed_release_by_ns_by_release_name(ns, release) =====
 helm_del_installed_release_by_ns_by_release_name() {
     [[ -z "$1" || -z "$2" ]] && { echo "❌ Usage: helm_del_installed_release_by_ns_by_release_name <ns> <release>"; return 1; }
-    $HELM uninstall "$2" -n "$1"
+    $HELM_EXEC uninstall "$2" -n "$1"
 }
 
 # ===== helm_install_mac() =====

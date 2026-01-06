@@ -1,7 +1,3 @@
-export K8S="kubectl"
-
-export note_file="/var/repos/r-docs-readings/k8/Documentation/tutorials/_general.log"
-
 LIBRARIES=(
     "/var/repos/r-shellfun/000-cluster.sh"
     "/var/repos/r-shellfun/000-ns-namespace.sh"
@@ -34,8 +30,30 @@ for lib in "${LIBRARIES[@]}"; do
     fi
 done
 
+function add_log(){
+    local folder="${sf_logs_folder:-$(pwd)}"
+    local log_file="$folder/_general.log"
+
+    # Ensure the directory exists
+    mkdir -p "$folder" 2>/dev/null
+
+    # Handle positional arguments
+    if [ $# -gt 0 ]; then
+        echo "$@" | tee -a "$log_file"
+    fi
+
+    # Handle piped input (stdin)
+    if [ ! -t 0 ]; then
+        cat - | tee -a "$log_file"
+    fi
+
+     # Add separator for differentiation
+    echo "..." | tee -a "$log_file"
+
+}
+
 function show_usage() {
-    echo "=======================Shell fun loaded============================="
+    add_log "=======================Shell fun loaded============================="
 }
 
 show_usage

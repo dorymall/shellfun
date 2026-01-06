@@ -22,12 +22,25 @@ if [ ! -d "/var/repos" ]; then
     sudo ln -s /Users/rcarrion/data /var/repos
 fi
 
-```
+your /var/repos/r-shellfun/_.sh file will import all the scripts. 
+So your startup script like ~/.zshrc or ~/.bashrc should have the following lines:
 
-your /var/repos/r-shellfun/_.sh file now imports all the scripts. 
-So your startup script like ~/.zshrc or ~/.bashrc should have the following line:
+# Set log file path to environment variables
+export sf_logs_folder=/var/repos/r-shellfun/ignored_d # Used
+export K8S="kubectl". # Used
+export HELM_EXEC="helm" # Used 
 
-```bash
+# For the future
+export KUSTOMIZE_EXEC="kustomize" # Not needed yet
+export DOTNET_EXEC="dotnet" # Not needed yet
+export PYTHON_EXEC="python" # Not needed yet
+export BUN_EXEC="bun" # Not needed yet
+export NODE_EXEC="node" # Not needed yet
+
+# Finally source the shellfun; This should come as the last line of this setup. 
+
 source /var/repos/r-shellfun/_.sh
+
+
 ```
 
