@@ -1,5 +1,6 @@
 LIBRARIES=(
     "/var/repos/r-shellfun/000-cluster.sh"
+    "/var/repos/r-shellfun/000-git.sh"
     "/var/repos/r-shellfun/000-ns-namespace.sh"
     "/var/repos/r-shellfun/010-ap-apply.sh"
     "/var/repos/r-shellfun/020-cm-configmap.sh"
@@ -71,7 +72,7 @@ function add_log_help(){
 }
 
 function show_usage() {
-    add_log "=======================Shell fun loaded============================="
+    add_log "=====Shell fun loaded===="
 }
 
 show_usage
